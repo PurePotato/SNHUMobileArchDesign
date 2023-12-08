@@ -13,26 +13,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NewItemFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class NewItemFragment extends Fragment {
-
+    //Begin Default Extend Fragment code
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ItemManagementDatabase dbHelper;
-    private EditText itemNameEditText, itemCountEditText, itemDescriptionEditTextMultiLine;
-    public NewItemFragment() {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -51,7 +47,12 @@ public class NewItemFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    //End Default Extend Fragment code
+    private ItemManagementDatabase dbHelper;
+    private EditText itemNameEditText, itemCountEditText, itemDescriptionEditTextMultiLine;
+    public NewItemFragment() {
+        // Required empty public constructor
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class NewItemFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        dbHelper = new ItemManagementDatabase(getActivity());
     }
 
     @Override
@@ -105,28 +106,25 @@ public class NewItemFragment extends Fragment {
     }
 
     private boolean createItem(String itemName, String description, int quantity) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Boolean result = null;
+        try{
+            long newRowId = dbHelper.addItem(itemName, description, quantity); // Returns the row ID
+            if(newRowId != -1){
+                result = true;
+                List<DataItem> updatedData = dbHelper.fetchData();
 
-        // Check if the username already exists
-        String[] projection = {ItemManagementDatabase.Items.COL_ID};
-        String selection = ItemManagementDatabase.Items.COL_ITEMNAME + "=?";
-        String[] selectionArgs = {itemName};
-        Cursor cursor = db.query(ItemManagementDatabase.Items.TABLE, projection, selection, selectionArgs, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            cursor.close();
-            return false; // Item Name already exists
+                // Update the RecyclerView in DatabaseViewer
+                if (getActivity() instanceof DatabaseViewer) {
+                    DatabaseViewer databaseViewer = (DatabaseViewer) getActivity();
+                    databaseViewer.updateRecyclerView(updatedData);
+                }
+            }else{
+                result = false;
+            }
+        }catch(Exception e ){
+            System.out.println("System error: " + e);
         }
-
-        // Insert the new item into the database
-        ContentValues values = new ContentValues();
-        values.put(ItemManagementDatabase.Items.COL_ITEMNAME, itemName);
-        values.put(ItemManagementDatabase.Items.COL_DESCRIPTION, description);
-        values.put(ItemManagementDatabase.Items.COL_QUANTITY, quantity);
-        long newRowId = db.insert(ItemManagementDatabase.Items.TABLE, null, values);
-
-        cursor.close();
-        return newRowId != -1; // Return true if the insert was successful
+        return result;
     }
 
     private void showToast(String message) {
@@ -139,5 +137,6 @@ public class NewItemFragment extends Fragment {
                     .remove(this) // Remove the current fragment
                     .commit();
         }
+
     }
 }

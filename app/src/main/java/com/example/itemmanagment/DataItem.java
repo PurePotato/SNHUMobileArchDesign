@@ -4,17 +4,39 @@ import java.util.Date;
 
 public class DataItem {
     private String itemName;
-    private Date itemDate;
+    private String description;
+    private int quantity;
 
-    public DataItem(String itemName,  Date itemDate) {
+    // Constructor
+    public DataItem(String itemName, String description, int quantity) {
         this.itemName = itemName;
-        this.itemDate = itemDate;
+        this.description = description;
+        this.quantity = quantity;
     }
 
+    // Getters
     public String getItemName() {
         return itemName;
     }
-    public String getItemDate() {
-        return itemDate.toString();
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    // Setters
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

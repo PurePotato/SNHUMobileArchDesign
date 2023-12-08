@@ -5,13 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class ItemManagementDatabase extends SQLiteOpenHelper {
 
     private static final String databaseName = "ItemManagement.db";
     private static final int version = 1;
+    private final Context context;
+
     public ItemManagementDatabase(Context context){
         super(context,databaseName,null,version);
+        this.context = context;
     }
+
 
     public static final class Items{
         public static final String TABLE = "items";
@@ -102,6 +111,49 @@ public class ItemManagementDatabase extends SQLiteOpenHelper {
         String[] project = {Items.COL_ID, Items.COL_ITEMNAME, Items.COL_DESCRIPTION, Items.COL_QUANTITY};
         return db.query(Items.TABLE, project, null, null, null, null, null);
     }
+
+    public List<DataItem> fetchData() {
+        List<DataItem> dataList = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        if (db != null) {
+            Cursor cursor = null;
+            try {
+                String[] projection = {
+                        Items.COL_ITEMNAME,
+                        Items.COL_DESCRIPTION,
+                        Items.COL_QUANTITY,
+                        // Add other columns as needed
+                };
+
+                cursor = db.query(
+                        Items.TABLE,
+                        projection,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+
+                while (cursor.moveToNext()) {
+                    String itemName = cursor.getString(cursor.getColumnIndexOrThrow(Items.COL_ITEMNAME));
+                    String description = cursor.getString(cursor.getColumnIndexOrThrow(Items.COL_DESCRIPTION));
+                    int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(Items.COL_QUANTITY));
+
+                    DataItem dataItem = new DataItem(itemName, description, quantity);
+                    dataList.add(dataItem);
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+
+        return dataList;
+    }
+
 }
 
 

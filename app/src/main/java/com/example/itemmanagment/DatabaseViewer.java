@@ -16,7 +16,7 @@ public class DatabaseViewer extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DataAdapter adapter;
     private List<DataItem> itemList = new ArrayList<>();
-
+    private ItemManagementDatabase dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,20 +25,37 @@ public class DatabaseViewer extends AppCompatActivity {
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.dataRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        dbHelper = new ItemManagementDatabase(this);
         // Initialize and set the adapter
         adapter = new DataAdapter(itemList);
         recyclerView.setAdapter(adapter);
         // Add Button Click Listener
         Button addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(v -> {
-            // Implement add functionality here
+            // Opens a New Item fragment
             NewItemFragment nif = new NewItemFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.databaseViewer, nif)
                     .addToBackStack(null)
                     .commit();
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Update the data in the adapter (you may fetch updated data from your database)
+        List<DataItem> updatedData = dbHelper.fetchData(); // Replace with your data fetching logic
+        itemList.clear();
+        itemList.addAll(updatedData);
+
+        // Notify the adapter of the data change
+        adapter.notifyDataSetChanged();
+    }
+    public void updateRecyclerView(List<DataItem> updatedData) {
+        itemList.clear();
+        itemList.addAll(updatedData);
+        adapter.notifyDataSetChanged();
     }
 }
 

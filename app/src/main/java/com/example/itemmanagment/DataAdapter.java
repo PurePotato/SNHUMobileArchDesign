@@ -14,10 +14,10 @@ import java.util.List;
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     private List<DataItem> itemList;
-    private int itemCount;
+    private String itemCount;
     public DataAdapter(List<DataItem> itemList) {
         this.itemList = itemList;
-        this.itemCount = 0;
+
     }
 
     @NonNull
@@ -33,22 +33,24 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
         // Set other views
         holder.itemNameTextView.setText(item.getItemName());
-        holder.itemDateTextView.setText(item.getItemDate());
-
+        holder.itemDateTextView.setText(item.getQuantity());
+        itemCount = Integer.toString(item.getQuantity());
         // Update item count
         holder.itemCounterTextView.setText("Item Count: " + itemCount);
 
         // Set click listeners for the increment and decrement buttons
         holder.incrementButton.setOnClickListener(v -> {
-            itemCount++;
+            //TODO: Add code to increase quantity (setQuantity method?)
             holder.itemCounterTextView.setText("Item Count: " + itemCount);
         });
 
         holder.decrementButton.setOnClickListener(v -> {
+            //TODO: Add code to handle quantities = 0
             if (itemCount > 0) {
-                itemCount--;
+                //TODO: Add code to decrease quantity (setQuantity method?)
                 holder.itemCounterTextView.setText("Item Count: " + itemCount);
             }
+            //TODO: Add code for sending SMS when item quantity equals 0
         });
 
         // Set click listener for the delete button
