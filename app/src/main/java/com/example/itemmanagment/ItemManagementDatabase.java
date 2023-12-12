@@ -14,11 +14,10 @@ public class ItemManagementDatabase extends SQLiteOpenHelper {
 
     private static final String databaseName = "ItemManagement.db";
     private static final int version = 1;
-    private final Context context;
+   // private final Context context;
 
     public ItemManagementDatabase(Context context){
         super(context,databaseName,null,version);
-        this.context = context;
     }
 
 

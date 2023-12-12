@@ -1,67 +1,87 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/headerTextView"
+    <!-- Main content of your fragment -->
+    <RelativeLayout
+        android:id="@+id/mainContentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="New Item"
-        android:textColor="@color/white"
-        android:textSize="24sp" />
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/itemNameEditText"
+        <TextView
+            android:id="@+id/headerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="New Item"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <!-- Your existing views go here -->
+
+        <EditText
+            android:id="@+id/itemNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Item Name"
+            android:layout_below="@id/headerTextView"/>
+
+        <EditText
+            android:id="@+id/itemCountEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemNameEditText"
+            android:hint="@string/itemQuantity"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/itemDescriptionEditTextMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/itemCountEditText"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="@string/itemDescription"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:text="Cancel"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/createItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/create"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"/>
+    </RelativeLayout>
+
+    <!-- Semi-transparent overlay -->
+    <View
+        android:id="@+id/overlayView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/headerTextView"
-        android:hint="@string/itemName"
-        android:minHeight="48dp"
-        android:layout_marginTop="8dp" />
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/itemCountEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/itemNameEditText"
-        android:hint="@string/itemQuantity"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:layout_marginTop="8dp" />
+</FrameLayout>
 
-    <EditText
-        android:id="@+id/itemDescriptionEditTextMultiLine"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/itemCountEditText"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:hint="@string/itemDescription"
-        android:layout_marginTop="8dp" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:text="Cancel"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/createItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/create"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"/>
-
-</RelativeLayout>

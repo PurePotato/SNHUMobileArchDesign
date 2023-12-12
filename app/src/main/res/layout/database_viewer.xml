@@ -31,9 +31,8 @@
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dataRecyclerView"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="-54dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/deep_orange"
         android:text="Add" />

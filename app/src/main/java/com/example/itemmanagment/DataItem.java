@@ -1,8 +1,7 @@
 package com.example.itemmanagment;
 
-import java.util.Date;
-
 public class DataItem {
+    private long id;
     private String itemName;
     private String description;
     private int quantity;
@@ -38,5 +37,9 @@ public class DataItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public long getItemId() {
+        return id;
     }
 }

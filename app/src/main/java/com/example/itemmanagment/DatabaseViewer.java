@@ -15,19 +15,21 @@ public class DatabaseViewer extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DataAdapter adapter;
-    private List<DataItem> itemList = new ArrayList<>();
+
     private ItemManagementDatabase dbHelper;
+    List<DataItem> itemList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.database_viewer);
-
+        dbHelper = new ItemManagementDatabase(this);
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.dataRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        dbHelper = new ItemManagementDatabase(this);
+
+        itemList = new ArrayList<>();
         // Initialize and set the adapter
-        adapter = new DataAdapter(itemList);
+        adapter = new DataAdapter(itemList, dbHelper);
         recyclerView.setAdapter(adapter);
         // Add Button Click Listener
         Button addButton = findViewById(R.id.addButton);

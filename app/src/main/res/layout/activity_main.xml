@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#07FF5722"
+    android:background="@drawable/pexels_warehouse"
     android:padding="16dp">
+
 
     <TextView
         android:id="@+id/headerTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
         android:gravity="center"
         android:padding="16dp"
         android:text="@string/app_name"
         android:textColor="@color/white"
+        android:background="@color/blue"
         android:textSize="24sp" />
 
     <ImageView
@@ -25,24 +26,27 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:contentDescription="@string/app_logo_description"
-        android:src="@drawable/ic_menu_agenda" />
+        android:src="@drawable/baseline_assignment_24"
+        />
 
     <EditText
         android:id="@+id/usernameEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_below="@id/appLogo"
         android:layout_marginTop="24dp"
-        android:hint="Username" />
+        android:hint="  Username"
+        android:background="@color/white"/>
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_below="@id/usernameEditText"
         android:layout_marginTop="16dp"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:hint="  Password"
+        android:inputType="textPassword"
+        android:background="@color/white"/>
 
     <Button
         android:id="@+id/loginButton"

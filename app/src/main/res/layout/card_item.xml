@@ -9,56 +9,63 @@
         android:id="@+id/itemNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:textSize="18dp"/>
 
     <TextView
-        android:id="@+id/itemDateTextView"
+        android:id="@+id/itemDescriptionView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/itemNameTextView"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:textSize="15dp"/>
+    />
 
     <TextView
         android:id="@+id/itemCounterTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/itemDateTextView"
+        android:layout_below="@id/itemDescriptionView"
         android:layout_marginTop="8dp"
         android:text="Item Count: 0"
+        android:textSize="15dp"
         android:layout_alignParentStart="true"/>
 
     <Button
         android:id="@+id/incrementButton"
-        android:layout_width="63dp"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/itemDateTextView"
+        android:layout_below="@id/itemDescriptionView"
         android:layout_marginStart="20dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@id/itemCounterTextView"
         android:backgroundTint="@color/deep_orange"
-        android:text="+" />
+        android:drawableLeft="@drawable/baseline_add_24"
+        android:gravity="center"
+        />
 
     <Button
         android:id="@+id/decrementButton"
-        android:layout_width="63dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/itemDateTextView"
+        android:layout_below="@id/itemDescriptionView"
         android:layout_marginStart="10dp"
         android:layout_marginTop="1dp"
         android:layout_toEndOf="@id/incrementButton"
         android:backgroundTint="@color/deep_orange"
-        android:text="-" />
+        android:drawableLeft="@drawable/baseline_horizontal_rule_24"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/itemDateTextView"
-        android:layout_marginStart="20dp"
+        android:layout_below="@id/itemDescriptionView"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@id/decrementButton"
 
-        android:backgroundTint="@color/design_default_color_on_primary"
+        android:backgroundTint="#3B1976D2"
         android:gravity="center"
         app:icon="@android:drawable/ic_menu_delete"
         app:iconSize="32dp"

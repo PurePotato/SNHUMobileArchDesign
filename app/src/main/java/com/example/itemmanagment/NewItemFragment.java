@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,7 @@ public class NewItemFragment extends Fragment {
     //End Default Extend Fragment code
     private ItemManagementDatabase dbHelper;
     private EditText itemNameEditText, itemCountEditText, itemDescriptionEditTextMultiLine;
+    private View overlayView;
     public NewItemFragment() {
         // Required empty public constructor
     }
@@ -68,6 +71,8 @@ public class NewItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_item, container, false);
+        overlayView = view.findViewById(R.id.overlayView);
+        RelativeLayout mainContentLayout = view.findViewById(R.id.mainContentLayout);
 
         itemNameEditText = view.findViewById(R.id.itemNameEditText);
         itemCountEditText= view.findViewById(R.id.itemCountEditText);
@@ -102,7 +107,22 @@ public class NewItemFragment extends Fragment {
 
         });
 
+        mainContentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleOverlayVisibility();
+            }
+        });
+
         return view;
+    }
+
+    private void toggleOverlayVisibility() {
+        if (overlayView.getVisibility() == View.VISIBLE) {
+            overlayView.setVisibility(View.GONE);
+        } else {
+            overlayView.setVisibility(View.VISIBLE);
+        }
     }
 
     private boolean createItem(String itemName, String description, int quantity) {
@@ -139,4 +159,6 @@ public class NewItemFragment extends Fragment {
         }
 
     }
+
+
 }
